@@ -41,5 +41,5 @@ The exercises will consist of automatically checked exercises that are either te
       - An insect has two-and-a-half leg
       - An insect has six legs
       
-      Comment: There would be a checkboxed at the right side of each alternative choice.
+      - Comment: There would be a checkboxed at the right side of each alternative choice.
       
