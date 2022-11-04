@@ -32,9 +32,8 @@ The exercises will consist of automatically checked exercises that are either te
   
   - A text based question could be:
     - How many legs does an insect have? (give your answer in non-capital letters)
-      Comment: There would now be a text field where the student can answer.
-      
-      The answer will then be compared to the correct answer: "six".
+      - Here would be a text field where the student can answer.
+      - The answer will then be compared to the correct answer: "six".
       
   - A multiple-choice-question could be:
     - Choose the correct alternative:
