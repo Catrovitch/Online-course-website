@@ -42,4 +42,50 @@ The exercises will consist of automatically checked exercises that are either te
       - An insect has six legs
       
      - Comment: There would be a checkboxed at the right side of each alternative choice.
-      
+     
+   ## Week 2 Development notes
+   
+  During this week I have implemented fly.io functionality and started developing the core functionalities of the service.
+  
+  - Backend:
+      - A fucntioning main application both locally and through fly.io
+      - Schema.sql
+      - A functioning database which includes atleast a preliminary structure.
+        - Tables: Users, Courses, Course_registration, Exercises and Course_statistsics
+      - routes for index, login (this will probably be deleted in the future), courses, logout, register, register_admin (for development purposes only) and admin.
+      - Some functionalities for fetching data about courses. (At the moment many of these are not in use.)
+      - Some functionalities for fetching and inserting data for table Users.
+      - Admin module (This didn't work for some reason. This will probably be deleted in the future, as it was anyways developed for development reasons only).
+  - Frontend:
+    - index.html which funcitons as a main page. Uses Bootstrap. Will be improved upon in the future.
+    - Rest of the frontend is at a very early stage, but there are functioning pages for admin.html, courses.html, error.html, login.html (will be deleted), register.html.
+    - register.html includes the option to create an admin account. This is for development reasons purely.
+    
+### Launch app:
+
+To visit the webpage click [here](https://online-course-website.fly.dev/)
+
+To test the application locally you first need to clone the repository with command:
+```
+git clone git@github.com:Catrovitch/Online-course-website.git
+```
+
+Activate virtual environment with command:
+```
+source venv/bin/activate
+```
+
+Then install dependencies with command:
+```
+pip install -r requirements.txt
+```
+
+Now you can launch the app locally through the command "flask run". For this to work you need to remove ".replace("://", "ql://", 1)" from line "app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://", "ql://", 1)" in file db.py. This is due to some error not completely clear to me at the moment.
+
+Launch app locally:
+```
+flask run
+```
+
+Good luck!
+
