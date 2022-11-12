@@ -1,0 +1,39 @@
+body {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+
+    max-width: 50 em;
+    line-height: 1.5;
+    padding: 4em 1em;
+    color: #555;
+  }
+nav li {
+  display: inline-block;
+  padding: 0 .5em;
+  }
+  .header {
+    background: sandybrown;
+    font-weight: bold;
+    padding: 2em 1em;
+    font-size: 2em;
+  }
+form {
+  display: block;
+  float: right;
+}
+
+nav ul {
+  padding: 0;
+}
+
+h2 {
+    margin-top: 0;
+    padding: 5em;
+}
+
+.code {
+    padding: 2px 4px;
+    vertical-align: text-bottom;
+    background: #eee;
+  }
