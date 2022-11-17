@@ -1,4 +1,15 @@
 <form action="/register" method="post">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+
     Username: <input type="text" name="username">
     <p>
     Password: <input type="password" name="password1">
@@ -12,9 +23,9 @@ For development purposes only:
 <form action="/register_admin" method="post">
     Username: <input type="text" name="username">
     <p>
-    Password: <input type="password" name="password1">
+    Password: <input type="password" name="password">
     <p>
-    Repeat password: <input type="password" name="password2">
+    Repeat password: <input type="password" name="password_confirmation">
     <p>
     <input type="submit" value="Create admin account">
     </form>

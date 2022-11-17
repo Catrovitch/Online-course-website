@@ -1,2 +1,90 @@
-You are admin. You are logged in as {{user}}
-<a href="/logout">Logout</a>
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<title>Tsoha App</title>
+<div class="container">
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <a class="navbar-brand" href="#">OnCoLi</a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/courses">Courses</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Page 2</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Page 3</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="row">
+    <div class="col-8">
+      <h1>Admin page:</h1>
+      <p>
+        Here is a list of all courses available at the moment:
+      <p>
+
+        {% if courses %}
+          <ul>
+            {% for course in courses %}
+              <li>{{ course}}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+          <p> There are currently no available courses</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+      <h4>User</h4>
+      <p>                
+        {% if session.user_id %}
+        <p>You are logged in as {{ user }}</p>
+        <a href="/logout" class="btn btn-primary" >Logout</a>
+        {% else %}
+        <form action="/login" method="post">
+
+            <div class="form-group col-6">
+              <label for="inputUsername">Username</label>
+              <input type="text" class="form-control" id="inputUsername" name="username">
+            </div>
+
+            <div class="form-group col-6">
+              <label for="inputPassword">Password</label>
+              <input type="password" class="form-control" id="inputPassword" name="password">
+            </div>
+
+            <div class="form-group col-6">
+              <input type="submit" class="btn btn-primary" value="Login">
+            </div>
+
+          </form>
+          <a href="/register" class="btn btn-primary" >Register</a>
+        {% endif %}
+
+
+        <form action="/admin/createcourse" method="post">
+
+          <div class="form-group col-6">
+            <label for="inputCoursename">Name of course</label>
+            <input type="text" class="form-control" id="inputCoursename" name="course_name">
+          </div>
+
+          <div class="form-group col-6">
+            <label for="inputCourseid">Course id</label>
+            <input type="text" class="form-control" id="inputCourseid" name="course_id">
+          </div>
+
+          <div class="form-group col-6">
+            <label for="inputCoursedescription">Short course description</label>
+            <input type="text" class="form-control" id="inputCoursedescription" name="course_description">
+          </div>
+          
+          <div class="form-group col-6">
+            <input type="submit" class="btn btn-primary" value="Create course">
+          </div>
+
+        </form>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.1 (Python 3.10.6 on linux)" generated="20221116 20:53:43.662" rpa="false" schemaversion="3">
+<suite id="s1" name="Tests" source="/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/tests">
+<suite id="s1-s1" name="Register" source="/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/tests/register.robot">
+<test id="s1-s1-t1" name="Register User With Valid Username And Password" line="6">
+<kw name="Register">
+<arg>gandalf</arg>
+<arg>thewhite123</arg>
+<arg>thewhite123</arg>
+<msg timestamp="20221116 20:53:43.964" level="FAIL">No keyword with name 'Register' found.</msg>
+<status status="FAIL" starttime="20221116 20:53:43.964" endtime="20221116 20:53:43.964"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>Create Account</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20221116 20:53:43.964" endtime="20221116 20:53:43.964"/>
+</kw>
+<status status="FAIL" starttime="20221116 20:53:43.961" endtime="20221116 20:53:43.965">No keyword with name 'Register' found.</status>
+</test>
+<status status="FAIL" starttime="20221116 20:53:43.680" endtime="20221116 20:53:43.965"/>
+</suite>
+<status status="FAIL" starttime="20221116 20:53:43.663" endtime="20221116 20:53:43.966"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Tests">Tests</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s1" name="Register">Tests.Register</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20221116 20:53:43.960" level="ERROR">Error in file '/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/tests/resource.robot' on line 3: Importing library '/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/routes.py' failed: Either 'SQLALCHEMY_DATABASE_URI' or 'SQLALCHEMY_BINDS' must be set.
+Traceback (most recent call last):
+  File "/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/routes.py", line 2, in &lt;module&gt;
+    import users
+  File "/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/users.py", line 1, in &lt;module&gt;
+    from db import db
+  File "/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/db.py", line 6, in &lt;module&gt;
+    db = SQLAlchemy(app)
+  File "/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/venv/lib/python3.10/site-packages/flask_sqlalchemy/extension.py", line 219, in __init__
+    self.init_app(app)
+  File "/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/venv/lib/python3.10/site-packages/flask_sqlalchemy/extension.py", line 301, in init_app
+    raise RuntimeError(
+PYTHONPATH:
+  /home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website
+  /home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/venv/bin
+  /usr/lib/python310.zip
+  /usr/lib/python3.10
+  /usr/lib/python3.10/lib-dynload
+  /home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/venv/lib/python3.10/site-packages</msg>
+<msg timestamp="20221116 20:53:43.961" level="ERROR">Error in file '/home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/tests/resource.robot' on line 4: Importing library '../users' failed: ModuleNotFoundError: No module named '.'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  /home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/venv/bin
+  /usr/lib/python310.zip
+  /usr/lib/python3.10
+  /usr/lib/python3.10/lib-dynload
+  /home/alexander/Documents/Courses/Tietokanta_Sovellus/Online-course-website/venv/lib/python3.10/site-packages</msg>
+</errors>
+</robot>
