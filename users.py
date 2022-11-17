@@ -23,9 +23,6 @@ def login(username, password):
 def logout():
     del session["user_id"]
 
-def user_id():
-    # Checks if and which user is logged in
-    return session.get("user_id",0)
 
 def user_name():
     
@@ -86,9 +83,24 @@ def register_admin_in_db(username, password):
 
     login(username, password)
 
-def search_for_user_by_username(username):
 
-    usernames = db.session.execute("SELECT username FROM Users").fetchall()
+def student_records():
+
+    result = db.session.execute("SELECT username FROM Users WHERE ADMIN IS FALSE").fetchall()
+    
+    studentrecords = [item[0] for item in result]
+
+    return studentrecords
+
+def user_id():
+    # Checks if and which user is logged in
+    return session.get("user_id",0)
+
+def username_exists(username):
+
+    sql = ("SELECT username FROM Users WHERE username =:username")
+    
+    usernames = db.session.execute(sql, {"username":username}).fetchall()
 
     if username in usernames:
         return True
@@ -105,7 +117,7 @@ def get_user_from_users(username):
 
 def validate_username(username):
 
-    if search_for_user_by_username(username):
+    if username_exists(username):
         raise UserInputError(f"User with username {username} exists already")
         
     if not re.match('^[a-z]+$', username, flags=0):
@@ -134,3 +146,8 @@ def validate_registration(username, password1, password2):
     validate_password(password1)
 
     return True
+
+
+if __name__=="__main__":
+    
+    studentrecords = student_records()
