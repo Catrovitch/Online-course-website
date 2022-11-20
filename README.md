@@ -43,18 +43,23 @@ The exercises will consist of automatically checked exercises that are either te
       
      - Comment: There would be a checkboxed at the right side of each alternative choice.
      
-   ## Week 2 Development notes
+   ## Second Deadline Development notes (20.11.2022)
    
-  During this week I have implemented fly.io functionality and started developing the core functionalities of the service.
+  During this week I have implemented fly.io functionality and started developing the core functionalities of the service. Due to my limited experience with any sort of web development I struggled quite hard to figure certain things out. At the end I think I learned a lot and fell much more confident for future assignments. 
   
   - Backend:
       - A fucntioning main application both locally and through fly.io
       - Schema.sql
       - A functioning database which includes atleast a preliminary structure.
-        - Tables: Users, Courses, Course_registration, Exercises and Course_statistsics
+        - Tables: Users, Courses, Course_registration, Exercises and Course_statistsics (All are not in use yet).
+      - A functioning main application.
       - routes for index, login (this will probably be deleted in the future), courses, logout, register, register_admin (for development purposes only) and admin.
-      - Some functionalities for fetching data about courses. (At the moment many of these are not in use.)
-      - Some functionalities for fetching and inserting data for table Users.
+      - A user can register an account.
+      - A user can log in with his/her credentials.
+      - A user can view available courses.
+      - Admin page where an admin can view available courses and students.
+      - Admin can create a course
+      - Admin can delete a course
       - Admin module (This didn't work for some reason. This will probably be deleted in the future, as it was anyways developed for development reasons only).
   - Frontend:
     - index.html which funcitons as a main page. Uses Bootstrap. Will be improved upon in the future.
