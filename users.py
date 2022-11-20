@@ -83,7 +83,6 @@ def register_admin_in_db(username, password):
 
     login(username, password)
 
-
 def student_records():
 
     result = db.session.execute("SELECT username FROM Users WHERE ADMIN IS FALSE").fetchall()
@@ -98,11 +97,12 @@ def user_id():
 
 def username_exists(username):
 
-    sql = ("SELECT username FROM Users WHERE username =:username")
+    sql = "SELECT username FROM Users WHERE username =:username"
     
     usernames = db.session.execute(sql, {"username":username}).fetchall()
+    username_list = [item[0] for item in usernames]
 
-    if username in usernames:
+    if username in username_list:
         return True
         
     return False
@@ -125,6 +125,8 @@ def validate_username(username):
             
     if len(username) < 3:
         raise UserInputError(f"Username is too short")
+
+    return True
 
 def validate_password(password):
 
