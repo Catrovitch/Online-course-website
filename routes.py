@@ -1,6 +1,8 @@
 from app import app
 import users
 import course_handler
+import exercise_handler
+
 
 from flask import (
     Flask,
@@ -104,10 +106,10 @@ def create_course():
 
     if users.is_admin():
         course_name = request.form["course_name"]
-        course_id = request.form["course_id"]
+        course_code = request.form["course_code"]
         course_description = request.form["course_description"]
         try:
-            course_handler.create_course(course_name, course_id, course_description)
+            course_handler.create_course(course_name, course_code, course_description)
         except:
             pass
         return redirect("/admin")
@@ -130,10 +132,57 @@ def delete_course():
       
 
 @app.route("/courses", methods=["GET"])
-def course_page():
+def courses_page():
     courses_list = course_handler.get_all_courses()
 
     if users.user_id() == 0:
         return render_template("courses.html", courses = courses_list)
 
     return render_template("courses.html", courses = courses_list, user= users.user_name())
+
+
+@app.route("/course/<int:course_id>", methods=["GET"])
+def course_page(course_id):
+    course = course_handler.get_course(course_id)
+    exercises = exercise_handler.course_exercises(course_id)
+
+    if users.user_id() == 0:
+        return render_template("course.html", course=course, exercises=exercises)
+
+    return render_template("course.html", course=course, exercises=exercises, user=users.user_name(), status = users.is_admin())
+
+
+@app.route("/course/<int:course_id>/create_exercise/", methods=["POST"])
+def create_exercise(course_id):
+
+    question = request.form['question']
+    option1 = request.form['option1']
+    option2 = request.form['option2']
+    option3 = request.form['option3']
+    answer = request.form['radiobutton']
+
+    exercise_handler.create_exercise(course_id, question, option1, option2, option3, answer)
+
+    return course_page(course_id)
+
+@app.route("/course/<int:course_id>/edit_exercise/", methods=["POST"])
+def update_exercise(course_id):
+
+    exercise_nr = request.form['exercise_nr']
+    question = request.form['question']
+    option1 = request.form['option1']
+    option2 = request.form['option2']
+    option3 = request.form['option3']
+    answer = request.form['radiobutton']
+
+    exercise_handler.update_exercise(course_id, exercise_nr, question, option1, option2, option3, answer)
+
+    return course_page(course_id)
+
+@app.route("/course/<int:course_id>/delete_exercise/", methods=["POST"])
+def delete_exercise(course_id):
+
+    exercise_nr = request.form['exercise_to_delete']
+    exercise_handler.delete_exercise(course_id, exercise_nr)
+
+    return course_page(course_id)

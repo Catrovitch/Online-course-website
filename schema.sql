@@ -17,8 +17,12 @@ CREATE TABLE Course_registration (
 CREATE TABLE Exercises (
     id SERIAL PRIMARY KEY,
     course_id INTEGER REFERENCES Courses,
+    exercise_nr INTEGER, 
     question TEXT,
-    answer TEXT);
+    option1 TEXT,
+    option2 TEXT,
+    option3 TEXT,
+    answer INTEGER);
 
 CREATE TABLE Course_statistics (
     user_id INTEGER REFERENCES Users,

@@ -36,7 +36,7 @@
         {% if courses %}
           <ul>
             {% for course in courses %}
-              <li><a href ="/courses/{{ course.name }}"> {{ course.name }} </a></li>
+              <li><a href ="/course/{{ course.id }}"> {{ course.name }} </a></li>
                               
             {% endfor %}
           </ul>
@@ -47,14 +47,6 @@
       <p>
         Student Records
       <p>
-
-        <p>
-          {{ debug_message }}
-        </p>
-
-        <p>
-          {{ debug_message2 }}
-        </p>
 
       {% if users %}
         <ul>
@@ -90,8 +82,8 @@
         </div>
 
         <div class="form-group col-6">
-          <label for="inputCourseid">Course id</label>
-          <input type="text" class="form-control" id="inputCourseid" name="course_id">
+          <label for="inputCourse_code">Course code</label>
+          <input type="text" class="form-control" id="inputCourse_code" name="course_code">
         </div>
 
         <div class="form-group col-6">

@@ -34,13 +34,13 @@
         {% if courses %}
           <ul>
             {% for course in courses %}
-              <li>{{ course.name }}</li>
+              <li><a href ="/course/{{ course.id }}"> {{ course.name }} </a></li>
                 <ul>
                   <li>{{ course.description }}</li>
                 </ul>
-                
+                              
             {% endfor %}
-            </ul>
+          </ul>
         {% else %}
           <p> There are currently no available courses</p>
         {% endif %}
