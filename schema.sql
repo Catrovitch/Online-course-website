@@ -12,7 +12,7 @@ CREATE TABLE Users (
 
 CREATE TABLE Course_registration (
     course_id INTEGER REFERENCES Courses,
-    student_id INTEGER REFERENCES Users);
+    user_id INTEGER REFERENCES Users);
 
 CREATE TABLE Exercises (
     id SERIAL PRIMARY KEY,

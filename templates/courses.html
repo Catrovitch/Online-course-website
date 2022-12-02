@@ -38,7 +38,21 @@
                 <ul>
                   <li>{{ course.description }}</li>
                 </ul>
-                              
+                {% if session.user_id %}
+                  <form action="/register_for/{{ course.id }}/{{ session.user_id }}/" method="post">
+                    <div class="form-group col-6">
+                      <input type="submit" class="btn btn-primary" value="Register">
+                    </div>
+                  </form>
+                  <form action="/unregister/{{ course.id }}/{{ session.user_id }}/" method="post">
+                    <div class="form-group col-6">
+                      <input type="submit" class="btn btn-primary" value="Unregister">
+                    </div>
+                  </form>
+                {% endif %}
+
+                <p></p>
+
             {% endfor %}
           </ul>
         {% else %}

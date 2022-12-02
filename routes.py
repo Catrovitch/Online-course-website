@@ -2,7 +2,7 @@ from app import app
 import users
 import course_handler
 import exercise_handler
-
+import course_registration_handler
 
 from flask import (
     Flask,
@@ -186,3 +186,22 @@ def delete_exercise(course_id):
     exercise_handler.delete_exercise(course_id, exercise_nr)
 
     return course_page(course_id)
+
+
+@app.route("/register_for/<int:course_id>/<int:user_id>/", methods=["POST"])
+def register_for_course(course_id, user_id):
+    
+    if users.user_id() == 0:
+        return courses_page()
+    
+    course_registration_handler.register_for_course(course_id, user_id)
+    return courses_page()
+
+@app.route("/unregister/<int:course_id>/<int:user_id>/", methods=["POST"])
+def unregister_from_course(course_id, user_id):
+    
+    if users.user_id() == 0:
+        return courses_page()
+    
+    course_registration_handler.unregister_from_course(course_id, user_id)
+    return courses_page()

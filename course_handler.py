@@ -34,31 +34,6 @@ def delete_course(course_name):
 
     return True
 
-def course_exercises(course_id):
-    
-    sql = "SELECT exercise_nr, question, option1, option2, option3 FROM Exercises WHERE course_id =:course_id"
-    exercises = db.session.execute(sql, {"course_id":course_id}).fetchall()
-    
-    return exercises
-
-def create_exercise(course_id, question, option1, option2, option3, answer):
-   
-    if not course_id or not question or not option1 or not option2 or not option3 or not answer:
-        raise UserInputError("Fill in all information to create exercise")
-
-    exercise_nr = exercise_number(course_id)
-    sql = "INSERT INTO Exercises (course_id, exercise_nr, question, option1, option2, option3, answer) values (:course_id, :exercise_nr, :question, :option1, :option2, :option3, :answer)"
-    db.session.execute(sql, {"course_id":course_id, "exercise_nr":exercise_nr, "question":question, "option1":option1, "option2":option2, "option3":option3, "answer":answer})
-    db.session.commit()
-
-def exercise_number(course_id):
-
-    sql = "SELECT MAX(exercise_nr) FROM Exercises WHERE course_id = :course_id"
-    result = db.session.execute(sql, {"course_id":course_id}).fetchone()[0]
-    exercise_nr = int(result) +1
-
-    return exercise_nr
-
 def course_name(course_id):
 
     sql = "SELECT name FROM Courses WHERE id =:course_id"
