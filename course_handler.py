@@ -15,8 +15,8 @@ def create_course(course_name, course_code, description):
     if not course_name or not course_code or not description:
         raise UserInputError("Fill in all information to create course")
 
-    sql = "INSERT INTO courses (name, course_id, description) values (:name, :course_id, :description)"
-    db.session.execute(sql, {"name":course_name, "course_id":course_code, "description":description})
+    sql = "INSERT INTO courses (name, course_code, description) values (:name, :course_code, :description)"
+    db.session.execute(sql, {"name":course_name, "course_code":course_code, "description":description})
     db.session.commit()
 
 def delete_course(course_name):
@@ -62,3 +62,10 @@ def get_all_courses():
     result = db.session.execute("SELECT id, name, course_code, description FROM Courses").fetchall()
 
     return result
+
+def get_users_courses(user_courses):
+
+    sql = f"SELECT * FROM Courses WHERE id = ANY(ARRAY{user_courses})"
+    courses = db.session.execute(sql).fetchall()
+
+    return courses

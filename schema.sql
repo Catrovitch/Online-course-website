@@ -24,8 +24,8 @@ CREATE TABLE Exercises (
     option3 TEXT,
     answer INTEGER);
 
-CREATE TABLE Course_statistics (
+CREATE TABLE Statistics (
     user_id INTEGER REFERENCES Users,
     course_id INTEGER REFERENCES Courses,
-    exercise_id INTEGER REFERENCES Exercises,
+    exercise_id INTEGER,
     completed BOOLEAN);

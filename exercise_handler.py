@@ -7,22 +7,31 @@ class UserInputError(Exception):
 
 def course_exercises(course_id):
     
-    sql = "SELECT exercise_nr, question, option1, option2, option3 FROM Exercises WHERE course_id =:course_id ORDER BY exercise_nr ASC"
+    sql = "SELECT id, exercise_nr, question, option1, option2, option3 FROM Exercises WHERE course_id =:course_id ORDER BY exercise_nr ASC"
     exercises = db.session.execute(sql, {"course_id":course_id}).fetchall()
     
     return exercises
+
+def exercise_ids(course_id):
+
+    sql = "SELECT id FROM Exercises WHERE course_id =:course_id"
+    result = db.session.execute(sql, {"course_id":course_id})
+    exercise_number_list = [number[0] for number in result]
+
+    return exercise_number_list
+
 
 def create_exercise(course_id, question, option1, option2, option3, answer):
    
     if not course_id or not question or not option1 or not option2 or not option3 or not answer:
         raise UserInputError("Fill in all information to create exercise")
 
-    exercise_nr = exercise_number(course_id)
+    exercise_nr = max_exercise_number(course_id)
     sql = "INSERT INTO Exercises (course_id, exercise_nr, question, option1, option2, option3, answer) values (:course_id, :exercise_nr, :question, :option1, :option2, :option3, :answer)"
     db.session.execute(sql, {"course_id":course_id, "exercise_nr":exercise_nr, "question":question, "option1":option1, "option2":option2, "option3":option3, "answer":answer})
     db.session.commit()
 
-def exercise_number(course_id):
+def max_exercise_number(course_id):
 
     sql = "SELECT MAX(exercise_nr) FROM Exercises WHERE course_id = :course_id"
     result = db.session.execute(sql, {"course_id":course_id}).fetchone()[0]
@@ -33,6 +42,19 @@ def exercise_number(course_id):
     exercise_nr = int(result) +1
 
     return exercise_nr
+
+def max_exercise_id(course_id):
+
+    sql = "SELECT MAX(id) FROM Exercises WHERE course_id = :course_id"
+    result = db.session.execute(sql, {"course_id":course_id}).fetchone()[0]
+
+    if result == None:
+        return 1
+
+    id = int(result)
+
+    return id
+
 
 def update_exercise(course_id, exercise_nr, question, option1, option2, option3, answer):
 
@@ -116,3 +138,21 @@ def get_id(course_id, exercise_nr):
     id = db.session.execute(sql, {"course_id":course_id, "exercise_nr":exercise_nr}).fetchone()[0]
 
     return id
+
+def check_correctness(course_id, submitted_answers):
+
+    answers = get_answers(course_id)
+    correct_exercises = []
+
+    for exercise in answers:
+        if str(exercise[1]) == submitted_answers[exercise[0]]:
+            correct_exercises.append(exercise[0])
+
+    return correct_exercises
+
+def get_answers(course_id):
+
+    sql = "SELECT id, answer FROM Exercises WHERE course_id =:course_id"
+    result = db.session.execute(sql, {"course_id":course_id}).fetchall()
+
+    return result

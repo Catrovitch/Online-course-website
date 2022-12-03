@@ -85,10 +85,8 @@ def register_admin_in_db(username, password):
 
 def student_records():
 
-    result = db.session.execute("SELECT username FROM Users WHERE ADMIN IS FALSE").fetchall()
+    studentrecords = db.session.execute("SELECT id, username FROM Users WHERE ADMIN IS FALSE").fetchall()
     
-    studentrecords = [item[0] for item in result]
-
     return studentrecords
 
 def user_id():

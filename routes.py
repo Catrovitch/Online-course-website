@@ -3,6 +3,7 @@ import users
 import course_handler
 import exercise_handler
 import course_registration_handler
+import statistics_handler
 
 from flask import (
     Flask,
@@ -91,15 +92,6 @@ def admin():
     else:
         return render_template("error.html", message="You are no admin")
 
-#@app.route("/admin", methods=["GET"])
-#def Student_records():
-
-    #if users.is_admin():
-
-        #student_records = users.student_records()
-
-        #return render_template("admin.html", student_records = student_records )
-
 
 @app.route("/admin/createcourse", methods=["POST"])
 def create_course():
@@ -123,6 +115,7 @@ def delete_course():
         course_name = request.form["course_to_delete"]
         try:
             course_handler.delete_course(course_name)
+            statistics_handler.delete_course(course_name)
         except:
             pass
         student_records = users.student_records()
@@ -138,7 +131,7 @@ def courses_page():
     if users.user_id() == 0:
         return render_template("courses.html", courses = courses_list)
 
-    return render_template("courses.html", courses = courses_list, user= users.user_name())
+    return render_template("courses.html", courses = courses_list, user=users.user_name())
 
 
 @app.route("/course/<int:course_id>", methods=["GET"])
@@ -162,6 +155,7 @@ def create_exercise(course_id):
     answer = request.form['radiobutton']
 
     exercise_handler.create_exercise(course_id, question, option1, option2, option3, answer)
+    statistics_handler.add_exercise(course_id)
 
     return course_page(course_id)
 
@@ -184,6 +178,7 @@ def delete_exercise(course_id):
 
     exercise_nr = request.form['exercise_to_delete']
     exercise_handler.delete_exercise(course_id, exercise_nr)
+    statistics_handler.delete_exercise(course_id, exercise_nr)
 
     return course_page(course_id)
 
@@ -194,7 +189,10 @@ def register_for_course(course_id, user_id):
     if users.user_id() == 0:
         return courses_page()
     
-    course_registration_handler.register_for_course(course_id, user_id)
+    if not course_registration_handler.user_already_in_course(course_id, user_id):
+        course_registration_handler.register_for_course(course_id, user_id)
+        statistics_handler.initialize_user_at_course(user_id, course_id)
+
     return courses_page()
 
 @app.route("/unregister/<int:course_id>/<int:user_id>/", methods=["POST"])
@@ -204,4 +202,33 @@ def unregister_from_course(course_id, user_id):
         return courses_page()
     
     course_registration_handler.unregister_from_course(course_id, user_id)
+    statistics_handler.user_unregisters_from_course(course_id, user_id)
     return courses_page()
+
+@app.route("/user/<int:user_id>/", methods=["GET"])
+def user(user_id):
+
+    if user_id == users.user_id() or users.is_admin():
+        course_progression = statistics_handler.progression(user_id)
+
+        return render_template("user.html", courses=course_progression)
+
+    return redirect("/")
+
+    
+@app.route("/course/<int:course_id>/<int:user_id>/check_exercises/", methods=["POST"])
+def check_exercises(course_id, user_id):
+
+    if users.user_id() == 0:
+        return redirect("/")
+    
+    exercise_ids = exercise_handler.exercise_ids(course_id)
+    submitted_answers = {}
+
+    for number in exercise_ids:
+        submitted_answers[number] = request.form[str(number)]
+
+    checked_exercises = exercise_handler.check_correctness(course_id, submitted_answers)
+    statistics_handler.submit_exercises(user_id, course_id, checked_exercises)
+
+    return course_page(course_id)

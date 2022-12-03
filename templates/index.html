@@ -10,7 +10,9 @@
         <a class="nav-link" href="/courses">Courses</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/user">User</a>
+        {% if session.user_id %}
+          <a class="nav-link" href="/user/{{ session.user_id  }}">User</a> 
+        {% endif %}
       </li>
         {% if session.user_id %}
           {% if status %}
@@ -38,24 +40,25 @@
       <h4>User</h4>
       <p>                
         {% if session.user_id %}
-        <p>You are logged in as {{ user }}</p>
-        <a href="/logout" class="btn btn-primary" >Logout</a>
+          <p>You are logged in as {{ user }}</p>
+          <a href="/logout" class="btn btn-primary" >Logout</a>
         {% else %}
-        <form action="/login" method="post">
+          <form action="/login" method="post">
 
-            <div class="form-group col-6">
-              <label for="inputUsername">Username</label>
-              <input type="text" class="form-control" id="inputUsername" name="username">
-            </div>
-            <div class="form-group col-6">
-              <label for="inputPassword">Password</label>
-              <input type="password" class="form-control" id="inputPassword" name="password">
-            </div>
-            <div class="form-group col-6">
-              <input type="submit" class="btn btn-primary" value="Login">
-            </div>
+              <div class="form-group col-6">
+                <label for="inputUsername">Username</label>
+                <input type="text" class="form-control" id="inputUsername" name="username">
+              </div>
+              <div class="form-group col-6">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="inputPassword" name="password">
+              </div>
+              <div class="form-group col-6">
+                <input type="submit" class="btn btn-primary" value="Login">
+              </div>
+            </form>
+            <a href="/register" class="btn btn-primary" >Register</a>
           </form>
-          <a href="/register" class="btn btn-primary" >Register</a>
         {% endif %}
 
     </div>
