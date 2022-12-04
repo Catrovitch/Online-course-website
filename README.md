@@ -43,51 +43,7 @@ The exercises will consist of automatically checked exercises that are either te
       
      - Comment: There would be a checkboxed at the right side of each alternative choice.
      
-   ## Second Deadline Development notes (20.11.2022)
-   
-  During this week I have implemented fly.io functionality and started developing the core functionalities of the service. Due to my limited experience with any sort of web development I struggled quite hard to figure certain things out. At the end I think I learned a lot and fell much more confident for future assignments. 
-  
-  - Backend:
-      - A fucntioning main application both locally and through fly.io
-      - Schema.sql
-      - A functioning database which includes atleast a preliminary structure.
-        - Tables: Users, Courses, Course_registration, Exercises and Course_statistsics (All are not in use yet).
-      - A functioning main application.
-      - routes for index, login (this will probably be deleted in the future), courses, logout, register, register_admin (for development purposes only) and admin.
-      - A user can register an account.
-      - A user can log in with his/her credentials.
-      - A user can view available courses.
-      - Admin page where an admin can view available courses and students.
-      - Admin can create a course
-      - Admin can delete a course
-      - Admin module (This didn't work for some reason. This will probably be deleted in the future, as it was anyways developed for development reasons only).
-  - Frontend:
-    - index.html which funcitons as a main page. Uses Bootstrap. Will be improved upon in the future.
-    - Rest of the frontend is at a very early stage, but there are functioning pages for admin.html, courses.html, error.html, login.html (will be deleted), register.html.
-    - register.html includes the option to create an admin account. This is for development reasons purely.
-    
-   ## Third Deadline Development notes (4.12.2022)
-   
-   The core structure of the program is ready. The program differs from the original plan on a couple notes. There are no text exercises present. ALl exercises use radiobuttons for answers. An natural addition is that an admin account also has all functions of a normal user. There is a minor bug present which I currently don't know the cause of. Something is fishy about how the progression is programmed or visualized. Needs some reloads to show properly. All other core functionalities have been implemented. 
-
-##### A minor note on the structure:
-The architecture follows a basic set up where there is one module of functions per table in the database (users.py, courses.py, course_registration.py, exercises.py and statistics.py). All of these are entirely independant except for statsistics.py. This module also accesses other tables than table: statistics. 
-
-I'm was a bit worried when starting to develop statistics.py on if it would turn out to have too many dependencies, but at the end it worked out fine in my opionion. 
-
-##### Still left to do
-   
-   1. Fix levels cross UI.
-   2. Apply cyber-security.
-   3. Code reviewing. (Light refactoring and renaming if need be).
-    
-   If time allows:
-   
-   4. Customize UI.
-   5. Testing. (I haven't read anywhere that this should have been part of the course?? Please tell me if it is in the response.)
-   6. More functionalities.
-
-### Launch app:
+ ### Launch app:
 
 To visit the webpage click [here](https://online-course-website.fly.dev/)
 
@@ -114,4 +70,51 @@ flask run
 ```
 
 Good luck!
+
+     
+   ## Third Deadline Development notes (4.12.2022)
+   
+   The core structure of the program is ready. The program differs from the original plan on a couple notes. There are no text exercises present. ALl exercises use radiobuttons for answers. An natural addition is that an admin account also has all functions of a normal user. There is a minor bug present which I currently don't know the cause of. Something is fishy about how the progression is programmed or visualized. Needs some reloads to show properly. All other core functionalities have been implemented. 
+
+##### A minor note on the structure:
+The architecture follows a basic set up where there is one module of functions per table in the database (users.py, courses.py, course_registration.py, exercises.py and statistics.py). All of these are entirely independant except for statsistics.py. This module also accesses other tables than table: statistics. 
+
+I'm was a bit worried when starting to develop statistics.py on if it would turn out to have too many dependencies, but at the end it worked out fine in my opionion. 
+
+##### Still left to do
+   
+   1. Fix levels cross UI.
+   2. Apply cyber-security.
+   3. Code reviewing. (Light refactoring and renaming if need be).
+    
+   If time allows:
+   
+   4. Customize UI.
+   5. Testing. (I haven't read anywhere that this should have been part of the course?? Please tell me if it is in the response.)
+   6. More functionalities.
+
+   ## Second Deadline Development notes (20.11.2022)
+   
+  During this week I have implemented fly.io functionality and started developing the core functionalities of the service. Due to my limited experience with any sort of web development I struggled quite hard to figure certain things out. At the end I think I learned a lot and fell much more confident for future assignments. 
+  
+  - Backend:
+      - A fucntioning main application both locally and through fly.io
+      - Schema.sql
+      - A functioning database which includes atleast a preliminary structure.
+        - Tables: Users, Courses, Course_registration, Exercises and Course_statistsics (All are not in use yet).
+      - A functioning main application.
+      - routes for index, login (this will probably be deleted in the future), courses, logout, register, register_admin (for development purposes only) and admin.
+      - A user can register an account.
+      - A user can log in with his/her credentials.
+      - A user can view available courses.
+      - Admin page where an admin can view available courses and students.
+      - Admin can create a course
+      - Admin can delete a course
+      - Admin module (This didn't work for some reason. This will probably be deleted in the future, as it was anyways developed for development reasons only).
+  - Frontend:
+    - index.html which funcitons as a main page. Uses Bootstrap. Will be improved upon in the future.
+    - Rest of the frontend is at a very early stage, but there are functioning pages for admin.html, courses.html, error.html, login.html (will be deleted), register.html.
+    - register.html includes the option to create an admin account. This is for development reasons purely.
+    
+   
 
