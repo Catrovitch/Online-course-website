@@ -1,7 +1,7 @@
 CREATE TABLE Courses (
     id SERIAL PRIMARY KEY,
     name TEXT UNIQUE, 
-    course_id TEXT UNIQUE, 
+    course_code TEXT UNIQUE, 
     description TEXT);
 
 CREATE TABLE Users (

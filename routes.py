@@ -17,6 +17,7 @@ from flask import (
 
 @app.route("/")
 def index():
+    
     if users.user_id() == 0:
         return render_template("index.html")
     

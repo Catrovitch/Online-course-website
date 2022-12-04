@@ -21,8 +21,10 @@ def login(username, password):
             return False
 
 def logout():
-    del session["user_id"]
-
+    try:
+        del session["user_id"]
+    except:
+        pass
 
 def user_name():
     
