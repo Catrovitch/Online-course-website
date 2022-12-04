@@ -81,7 +81,7 @@ I'm was a bit worried when starting to develop statistics.py on if it would turn
    2. Apply cyber-security.
    3. Code reviewing. (Light refactoring and renaming if need be).
     
-    ######If time allows:
+    ###### If time allows:
    
    4. Customize UI.
    5. Testing. (I haven't read anywhere that this should have been part of the course?? Please tell me if it is in the response.)
