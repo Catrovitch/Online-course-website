@@ -76,7 +76,7 @@ def submit_exercises(user_id, course_id, correct_exercises):
 
 def progression(user_id):
 
-    user_on_courses = courses_by_user(user_id)
+    user_on_courses = courses_by_user(user_id) #SELECT course_id
 
     course_progressions = []
 
@@ -85,6 +85,7 @@ def progression(user_id):
         description = course_handler.course_description(course_id)
         user_progression = progression_on_course(course_id, user_id)
         course_progressions.append((course_id, name, description, user_progression))
+        print(course_progressions)
 
     return course_progressions
 
@@ -119,8 +120,11 @@ def number_of_exercises(course_id):
 
 def completed_exercises(course_id, user_id):
 
+    
     sql = "SELECT COUNT(*) FROM Statistics WHERE course_id =:course_id AND user_id =:user_id AND completed =:completed"
     result = db.session.execute(sql, {"course_id":course_id, "user_id":user_id, "completed":True}).fetchone()[0]
+
+    print(result)
 
     return result
 
