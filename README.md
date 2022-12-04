@@ -66,6 +66,26 @@ The exercises will consist of automatically checked exercises that are either te
     - Rest of the frontend is at a very early stage, but there are functioning pages for admin.html, courses.html, error.html, login.html (will be deleted), register.html.
     - register.html includes the option to create an admin account. This is for development reasons purely.
     
+   ## Third Deadline Development notes (4.12.2022)
+   
+   The core structure of the program is ready. The program differs from the original plan on a couple notes. There are no text exercises present. ALl exercises use radiobuttons for answers. An natural addition is that an admin account also has all functions of a normal user. There is a minor bug present which I currently don't know the cause of. Something is fishy about how the progression is programmed or visualized. Needs some reloads to show properly. All other core functionalities have been implemented. 
+
+##### A minor note on the structure:
+The architecture follows a basic set up where there is one module of functions per table in the database (users.py, courses.py, course_registration.py, exercises.py and statistics.py). All of these are entirely independant except for statsistics.py. This module also accesses other tables than table: statistics. 
+
+I'm was a bit worried when starting to develop statistics.py on if it would turn out to have too many dependencies, but at the end it worked out fine in my opionion. 
+
+##### Still left to do
+   
+   1. Fix levels cross UI.
+   2. Apply cyber-security.
+   3. Code reviewing. (Light refactoring and renaming if need be).
+   
+   If time allows:
+   4. Customize UI.
+   5. Testing. (I haven't read anywhere that this should have been part of the course?? Please tell me if it is in the response.)
+   6. More functionalities.
+
 ### Launch app:
 
 To visit the webpage click [here](https://online-course-website.fly.dev/)
