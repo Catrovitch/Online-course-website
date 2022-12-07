@@ -102,14 +102,19 @@ def courses_by_user(user_id):
 def progression_on_course(course_id, user_id):
 
     exercises_total = number_of_exercises(course_id)
+    print(exercises_total)
     exercises_done = completed_exercises(course_id, user_id)
+    print(exercises_done)
     if exercises_total > 0:
         progression_of_user_on_course = exercises_done/exercises_total
     else:
         progression_of_user_on_course = "currently no exercises are available"
         return progression_of_user_on_course
     
-    return (f"{int(progression_of_user_on_course)*100} %")
+    progression_percent = (round(float(progression_of_user_on_course), 2))
+    result = f"{progression_percent*100} %"
+    
+    return result
 
 def number_of_exercises(course_id):
 

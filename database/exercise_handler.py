@@ -21,8 +21,11 @@ def exercise_ids(course_id):
 
 def create_exercise(course_id, question, option1, option2, option3, answer):
    
-    if not course_id or not question or not option1 or not option2 or not option3 or not answer:
-        raise UserInputError("Fill in all information to create exercise")
+    if not course_id or not question or not option1 or not option2 or not option3:
+        raise UserInputError("Fill in all fields")
+
+    if answer is False:
+        raise UserInputError("Please select an answer")
 
     exercise_nr = max_exercise_number(course_id)
     sql = "INSERT INTO Exercises (course_id, exercise_nr, question, option1, option2, option3, answer) values (:course_id, :exercise_nr, :question, :option1, :option2, :option3, :answer)"
@@ -79,6 +82,7 @@ def update_exercise(course_id, exercise_nr, question, option1, option2, option3,
     sql = "UPDATE Exercises SET question =:question, option1 =:option1, option2 =:option2, option3 =:option3, answer =:answer WHERE course_id =:course_id AND exercise_nr =:exercise_nr"
     db.session.execute(sql, {"question":question, "option1":option1, "option2":option2, "option3":option3, "answer":answer, "course_id":course_id, "exercise_nr":exercise_nr})
     db.session.commit()
+
 
 def delete_exercise(course_id, exercise_nr):
 

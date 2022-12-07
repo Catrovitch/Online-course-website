@@ -144,10 +144,17 @@ def create_exercise(course_id):
     option1 = request.form['option1']
     option2 = request.form['option2']
     option3 = request.form['option3']
-    answer = request.form['radiobutton']
-
-    exercise_handler.create_exercise(course_id, question, option1, option2, option3, answer)
-    statistics_handler.add_exercise(course_id)
+    
+    try:
+        answer = request.form['radiobutton']
+    except:
+        answer = False
+        pass
+    try:
+        exercise_handler.create_exercise(course_id, question, option1, option2, option3, answer)
+        statistics_handler.add_exercise(course_id)
+    except Exception as error:
+        flash(str(error))
 
     return course_page(course_id)
 
@@ -206,7 +213,7 @@ def user(user_id):
 
     if user_id == users.user_id() or users.is_admin():
         course_progression = statistics_handler.progression(user_id)
-
+        print(course_progression)
         return render_template("user.html", courses=course_progression, user=users.user_name(), status=users.is_admin())
 
     return redirect("/")
@@ -223,8 +230,11 @@ def check_exercises(course_id, user_id):
 
     for number in exercise_ids:
         submitted_answers[number] = request.form[str(number)]
-
-    checked_exercises = exercise_handler.check_correctness(course_id, submitted_answers)
-    statistics_handler.submit_exercises(user_id, course_id, checked_exercises)
+    
+    
+    print(submitted_answers)
+    correct_exercises = exercise_handler.check_correctness(course_id, submitted_answers)
+    print(correct_exercises)
+    statistics_handler.submit_exercises(user_id, course_id, correct_exercises)
 
     return course_page(course_id)
