@@ -47,4 +47,14 @@ def get_users_on_course(course_id):
 
     return users_lst
 
+def delete_course(course_id):
+
+    if not course_id:
+        raise UserInputError("Please input course name")
+
+    sql = "DELETE FROM Course_registration WHERE course_id =:course_id"
+    db.session.execute(sql, {"course_id":course_id})
+    db.session.commit()
+
+    return
 

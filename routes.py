@@ -25,11 +25,6 @@ def index():
                          status = users.is_admin())
 
     
-@app.route("/login", methods=["GET"])
-def render_login():
-    return render_template("login.html")
-
-
 @app.route("/login", methods=["POST"])
 def handle_login():
 
@@ -89,7 +84,7 @@ def admin():
         student_records = users.student_records()
         courses_lst = course_handler.get_all_courses()
         return render_template("admin.html", users=student_records,
-                                courses=courses_lst, user = users.user_name())
+                                courses=courses_lst, user = users.user_name(), status=users.is_admin())
     else:
         return render_template("error.html", message="You are no admin")
 
@@ -115,14 +110,17 @@ def delete_course():
     if users.is_admin():
         course_name = request.form["course_to_delete"]
         try:
-            course_handler.delete_course(course_name)
+            course_id = course_handler.get_course_id_with_name(course_name)
+            course_registration_handler.delete_course(course_id)
+            exercise_handler.delete_all_exercises_for_course(course_id)
             statistics_handler.delete_course(course_name)
-        except:
-            pass
-        student_records = users.student_records()
-        courses_lst = course_handler.get_all_courses()
-        return render_template("admin.html", users=student_records,
-                                courses=courses_lst, user = users.user_name())
+            course_handler.delete_course(course_name)
+
+        except Exception as error:
+            flash(str(error))
+            
+        
+    return redirect("/admin")
       
 
 @app.route("/courses", methods=["GET"])

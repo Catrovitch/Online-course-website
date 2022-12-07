@@ -31,10 +31,12 @@ def add_exercise(course_id):
 def delete_course(course_name):
 
     course_id = get_course_id(course_name)
-
+    
     sql = "DELETE FROM Statistics WHERE course_id =:course_id"
     db.session.execute(sql, {"course_id":course_id})
     db.session.commit()
+
+    return True
 
 def get_course_id(course_name):
 

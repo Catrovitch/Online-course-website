@@ -154,3 +154,10 @@ def get_answers(course_id):
     result = db.session.execute(sql, {"course_id":course_id}).fetchall()
 
     return result
+
+def delete_all_exercises_for_course(course_id):
+
+    sql = "DELETE FROM Exercises WHERE course_id =:course_id"
+    db.session.execute(sql, {"course_id":course_id})
+    db.session.commit()
+

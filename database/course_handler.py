@@ -19,19 +19,27 @@ def create_course(course_name, course_code, description):
     db.session.commit()
 
 def delete_course(course_name):
+    
+    if not course_name:
+        raise UserInputError("Please input course name")
 
-    all_courses = [item[0] for item in get_all_courses()]
+    all_courses = [item[0] for item in get_all_course_names()]
 
     if course_name not in all_courses:
         raise UserInputError("No course with such name")
-    if not course_name:
-        raise UserInputError("No course_name given")
 
     sql = "DELETE FROM Courses WHERE name =:name"
     db.session.execute(sql, {"name":course_name})
-    db.session.commit() 
+    db.session.commit()
 
     return True
+
+def get_all_course_names():
+
+    sql = "SELECT name FROM Courses"
+    result = db.session.execute(sql)
+
+    return result
 
 def course_name(course_id):
 
@@ -68,3 +76,15 @@ def get_users_courses(user_courses):
     courses = db.session.execute(sql).fetchall()
 
     return courses
+
+def get_course_id_with_name(course_name):
+
+    if not course_name:
+        raise UserInputError("Please input course name")
+
+    sql = "SELECT id FROM Courses WHERE name =:course_name"
+    result = db.session.execute(sql, {"course_name":course_name}).fetchone()
+    if result == None:
+        raise UserInputError("No course exists with that name")
+    
+    return result[0]
