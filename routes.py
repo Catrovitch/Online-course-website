@@ -123,7 +123,7 @@ def courses_page():
     if users.user_id() == 0:
         return render_template("courses.html", courses = courses_list)
 
-    return render_template("courses.html", courses = courses_list, user=users.user_name())
+    return render_template("courses.html", courses = courses_list, user=users.user_name(), status=users.is_admin())
 
 
 @app.route("/course/<int:course_id>", methods=["GET"])
@@ -207,7 +207,7 @@ def user(user_id):
     if user_id == users.user_id() or users.is_admin():
         course_progression = statistics_handler.progression(user_id)
 
-        return render_template("user.html", courses=course_progression)
+        return render_template("user.html", courses=course_progression, user=users.user_name(), status=users.is_admin())
 
     return redirect("/")
 
