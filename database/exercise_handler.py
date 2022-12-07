@@ -1,6 +1,4 @@
-from db import db
-import course_handler
-
+from database.db import db
 
 class UserInputError(Exception):
     pass
@@ -113,14 +111,14 @@ def get_option1(id):
 
 def get_option2(id):
 
-    sql = "SELECT option1 FROM Exercises WHERE id=:id"
+    sql = "SELECT option2 FROM Exercises WHERE id=:id"
     option2 = db.session.execute(sql, {"id":id}).fetchone()[0]
 
     return option2
 
 def get_option3(id):
 
-    sql = "SELECT option1 FROM Exercises WHERE id=:id"
+    sql = "SELECT option3 FROM Exercises WHERE id=:id"
     option3 = db.session.execute(sql, {"id":id}).fetchone()[0]
 
     return option3

@@ -1,5 +1,4 @@
-from db import db
-
+from database.db import db
 
 class UserInputError(Exception):
     pass

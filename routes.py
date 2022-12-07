@@ -1,9 +1,9 @@
 from app import app
-import users
-import course_handler
-import exercise_handler
-import course_registration_handler
-import statistics_handler
+import database.users as users
+import database.course_handler as course_handler
+import database.exercise_handler as exercise_handler
+import database.course_registration_handler as course_registration_handler
+import database.statistics_handler as statistics_handler
 
 from flask import (
     Flask,
@@ -168,8 +168,12 @@ def update_exercise(course_id):
     option1 = request.form['option1']
     option2 = request.form['option2']
     option3 = request.form['option3']
-    answer = request.form['radiobutton']
-
+    try:
+        answer = request.form['radiobutton']
+    except:
+        id = exercise_handler.get_id(course_id, exercise_nr)
+        answer = exercise_handler.get_answer(id)
+        
     exercise_handler.update_exercise(course_id, exercise_nr, question, option1, option2, option3, answer)
 
     return course_page(course_id)

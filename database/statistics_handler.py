@@ -1,8 +1,8 @@
-from db import db
+from database.db import db
 
-import exercise_handler
-import course_registration_handler
-import course_handler
+import database.course_handler as course_handler
+import database.exercise_handler as exercise_handler
+import database.course_registration_handler as course_registration_handler
 
 class UserInputError(Exception):
     pass
@@ -85,7 +85,6 @@ def progression(user_id):
         description = course_handler.course_description(course_id)
         user_progression = progression_on_course(course_id, user_id)
         course_progressions.append((course_id, name, description, user_progression))
-        print(course_progressions)
 
     return course_progressions
 
@@ -123,9 +122,7 @@ def completed_exercises(course_id, user_id):
     
     sql = "SELECT COUNT(*) FROM Statistics WHERE course_id =:course_id AND user_id =:user_id AND completed =:completed"
     result = db.session.execute(sql, {"course_id":course_id, "user_id":user_id, "completed":True}).fetchone()[0]
-
-    print(result)
-
+    
     return result
 
 

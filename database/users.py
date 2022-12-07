@@ -1,6 +1,6 @@
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
-from db import db
+from database.db import db
 import re
 
 
@@ -110,8 +110,7 @@ def username_exists(username):
 def get_user_from_users(username):
 
     sql = "SELECT id, password, admin FROM users WHERE username=:username"
-    result = db.session.execute(sql, {"username":username})
-    user = result.fetchone()
+    user = db.session.execute(sql, {"username":username}).fetchone()
 
     return user
 
