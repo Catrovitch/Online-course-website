@@ -9,16 +9,19 @@ class UserInputError(Exception):
 
 def login(username, password):
 
+    if not username or not password:
+        raise UserInputError("Please input username and password")
+
     user = get_user_from_users(username)
 
     if not user:
-        return False
+        raise UserInputError(f"No user with username {username} exists")
     else:
         if check_password_hash(user.password, password):
-            session["user_id"] = user.id
-            return True
-        else:
-            return False
+                session["user_id"] = user.id
+                return
+        else:    
+            raise UserInputError("Password is incorrect")
 
 def logout():
     try:

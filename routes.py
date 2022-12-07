@@ -31,7 +31,10 @@ def handle_login():
     username = request.form["username"]
     password = request.form["password"]
     
-    if users.login(username, password):
+    try:
+        users.login(username, password)
+    except Exception as error:
+        flash(str(error))
         return redirect("/")
     else:
         return render_template("index.html")
