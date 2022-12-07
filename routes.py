@@ -37,7 +37,7 @@ def handle_login():
         flash(str(error))
         return redirect("/")
     else:
-        return render_template("index.html")
+        return redirect("/")
 
 @app.route("/logout")
 def logout():
@@ -56,29 +56,19 @@ def handle_register():
     username = request.form["username"]
     password = request.form["password1"]
     password_confirmation = request.form["password2"]
+    status = request.form["status"]
 
     try:
-        users.register_user(username, password, password_confirmation)
+        if status == "normal":
+            users.register_user(username, password, password_confirmation)
+        if status == "admin":
+            users.register_admin(username, password, password_confirmation)
         return redirect("/")        
     
     except Exception as error:
         flash(str(error))
         return redirect("/register")
 
-@app.route("/register_admin", methods=["POST"])
-def handle_register_admin():
-
-    username = request.form["username"]
-    password = request.form["password"]
-    password_confirmation = request.form["password_confirmation"]
-
-    try:
-        users.register_admin(username, password, password_confirmation)
-        return redirect("/")       
-    
-    except Exception as error:
-        flash(str(error))
-        return redirect("/register")
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
