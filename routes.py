@@ -252,5 +252,15 @@ def check_exercises(course_id, user_id):
 
     correct_exercises = exercise_handler.check_correctness(course_id, submitted_answers)
     statistics_handler.submit_exercises(user_id, course_id, correct_exercises)
+    
+    course = course_handler.get_course(course_id)
+    exercises = exercise_handler.course_exercises(course_id)
 
-    return course_page(course_id)
+    return render_template("course.html",
+                            course=course, 
+                            exercises=exercises, 
+                            user=users.user_name(), 
+                            status=users.is_admin(),
+                            registered=course_registration_handler.user_already_in_course(course.id, users.user_id()),
+                            submitted=True
+                            )

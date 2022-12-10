@@ -32,8 +32,7 @@
               </ul>
               </div>
             {% endif %}
-          {% endwith %}
-          
+          {% endwith %}        
       </li>
     </ul>
   </nav>
@@ -98,6 +97,10 @@
         <p> There are currently no exercises for the course.</p>
       {% endif %}
 
+      {% if submitted %}
+        <p>Exercises successfully submitted. See <a href="/user/{{ session.user_id }}" >user</a> page for progress.</p>
+      {% endif %}
+      
     </div> 
 
     <div class="col-4">
