@@ -20,6 +20,20 @@
           {% endif %}
         {% endif %}
       </li>
+      <li>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+
+            <div class="alert alert-danger" role="alert">  
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+            </div>
+          {% endif %}
+        {% endwith %}        
+      </li>
     </ul>
   </nav>
   <div class="row">
@@ -64,20 +78,10 @@
                 <input type="password" class="form-control" id="inputPassword2" name="password2">
                 </div>
                 <div class="form-group col-6">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 <input type="submit" class="btn btn-primary" value="Create account">
                 </div>
             </form>
     {% endif %}
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-    {% endwith %}
-
-
 </div>
 </div>

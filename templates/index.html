@@ -20,6 +20,20 @@
           {% endif %}
         {% endif %}
       </li>
+      <li>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+
+            <div class="alert alert-danger" role="alert">  
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+            </div>
+          {% endif %}
+        {% endwith %}        
+      </li>
     </ul>
   </nav>
   <div class="row">
@@ -31,7 +45,7 @@
         of the courses can be found below. You can create an 
         account here or click the button in the upper right corner.
       <p>
-        The website is still in development.
+        The website is ready for the purpose of the project, but would still need development for a real world scenario.
 
         
     </div>
@@ -52,24 +66,13 @@
                 <label for="inputPassword">Password</label>
                 <input type="password" class="form-control" id="inputPassword" name="password">
               </div>
+              <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
               <div class="form-group col-6">
                 <input type="submit" class="btn btn-primary" value="Login">
               </div>
-            </form>
             <a href="/register" class="btn btn-primary" >Register</a>
           </form>
         {% endif %}
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <ul>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-        {% endwith %}
-  
-
     </div>
   </div>
 </div>

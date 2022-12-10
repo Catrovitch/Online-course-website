@@ -20,6 +20,21 @@
           {% endif %}
         {% endif %}
       </li>
+      <li>
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+
+              <div class="alert alert-danger" role="alert">  
+              <ul>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+              </div>
+            {% endif %}
+          {% endwith %}
+          
+      </li>
     </ul>
   </nav>
   <div class="row">
@@ -36,6 +51,7 @@
       <p>
 
 
+      
       </p>
 
       <h5>Exercises</h5>
@@ -65,12 +81,19 @@
           {% endfor %}
         </ul>
         
-  
-          <div class="form-group col-6">
-            <input type="submit" class="btn btn-primary" value="Submit exercises">
-          </div>
+          {% if session.user_id %}
+            {% if registered %}
+            <div class="form-group col-6">
+              <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+              <input type="submit" class="btn btn-primary" value="Submit exercises">
+            </div>
+            {% else %}
+              <p>Register to course to submit exercises</p>
+            {% endif %}
+          {% else %}
+            <p>Log in and register to course to submit exercises</p>
+          {% endif %}
         </form>
-
       {% else %}
         <p> There are currently no exercises for the course.</p>
       {% endif %}
@@ -95,9 +118,11 @@
                 <input type="password" class="form-control" id="inputPassword" name="password">
               </div>
               <div class="form-group col-6">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 <input type="submit" class="btn btn-primary" value="Login">
               </div>
             </form>
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             <a href="/register" class="btn btn-primary" >Register</a>
           {% endif %}
         
@@ -153,19 +178,10 @@
             <p></p>
 
             <div class="form-group col-6">
+              <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             <input type="submit" class="btn btn-primary" value="Create exercise">
             </div>
-            
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                <ul>
-                {% for message in messages %}
-                  <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-              {% endif %}
-            {% endwith %}
-
+          
         </form>
 
         <p></p>
@@ -221,18 +237,10 @@
         <p></p>
 
         <div class="form-group col-6">
-        <input type="submit" class="btn btn-primary" value="Update exercise">
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+          <input type="submit" class="btn btn-primary" value="Update exercise">
         </div>
         
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <ul>
-            {% for message in messages %}
-              <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
     </form>
 
         <p></p>
@@ -247,6 +255,7 @@
         </div>
 
         <div class="form-group col-6">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             <input type="submit" class="btn btn-primary" value="Delete exercise">
         </div>
 

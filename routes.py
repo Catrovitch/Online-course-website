@@ -27,7 +27,7 @@ def index():
     
 @app.route("/login", methods=["POST"])
 def handle_login():
-
+    
     username = request.form["username"]
     password = request.form["password"]
     
@@ -92,7 +92,7 @@ def create_course():
         try:
             course_handler.create_course(course_name, course_code, course_description)
         except:
-            pass
+            flash("Please insert all the fields to create a course")
         return redirect("/admin")
     return redirect("/")
 
@@ -134,7 +134,13 @@ def course_page(course_id):
     if users.user_id() == 0:
         return render_template("course.html", course=course, exercises=exercises)
 
-    return render_template("course.html", course=course, exercises=exercises, user=users.user_name(), status = users.is_admin())
+    return render_template("course.html",
+                            course=course, 
+                            exercises=exercises, 
+                            user=users.user_name(), 
+                            status=users.is_admin(),
+                            registered=course_registration_handler.user_already_in_course(course.id, users.user_id())
+                            )
 
 
 @app.route("/course/<int:course_id>/create_exercise/", methods=["POST"])
@@ -160,8 +166,13 @@ def create_exercise(course_id):
 
 @app.route("/course/<int:course_id>/edit_exercise/", methods=["POST"])
 def update_exercise(course_id):
-
+        
     exercise_nr = request.form['exercise_nr']
+
+    if exercise_nr == "":
+        flash("Please input the number of the exercise you'd like to edit")
+        return course_page(course_id)
+
     question = request.form['question']
     option1 = request.form['option1']
     option2 = request.form['option2']
@@ -180,6 +191,10 @@ def update_exercise(course_id):
 def delete_exercise(course_id):
 
     exercise_nr = request.form['exercise_to_delete']
+
+    if exercise_nr == "":
+        flash("Please input the number of the exercise you'd like to edit")
+        return course_page(course_id)
     exercise_handler.delete_exercise(course_id, exercise_nr)
     statistics_handler.delete_exercise(course_id, exercise_nr)
 
@@ -228,13 +243,14 @@ def check_exercises(course_id, user_id):
     exercise_ids = exercise_handler.exercise_ids(course_id)
     submitted_answers = {}
 
-    for number in exercise_ids:
-        submitted_answers[number] = request.form[str(number)]
-    
-    
-    print(submitted_answers)
+    try:
+        for number in exercise_ids:
+            submitted_answers[number] = request.form[str(number)]
+    except:
+        flash("Please select an answer for every question")
+        return course_page(course_id)
+
     correct_exercises = exercise_handler.check_correctness(course_id, submitted_answers)
-    print(correct_exercises)
     statistics_handler.submit_exercises(user_id, course_id, correct_exercises)
 
     return course_page(course_id)

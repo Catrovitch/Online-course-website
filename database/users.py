@@ -2,6 +2,7 @@ from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from database.db import db
 import re
+import secrets
 
 
 class UserInputError(Exception):
@@ -12,6 +13,9 @@ def login(username, password):
     if not username or not password:
         raise UserInputError("Please input username and password")
 
+    if len(username) > 16 or len(password) > 16:
+        raise UserInputError("Usernames or passwords can't exceed 16 characters")
+
     user = get_user_from_users(username)
 
     if not user:
@@ -19,6 +23,7 @@ def login(username, password):
     else:
         if check_password_hash(user.password, password):
                 session["user_id"] = user.id
+                session["csrf_token"] = secrets.token_hex(16)
                 return
         else:    
             raise UserInputError("Password is incorrect")
@@ -26,6 +31,7 @@ def login(username, password):
 def logout():
     try:
         del session["user_id"]
+        del session["csfr_token"]
     except:
         pass
 
@@ -119,6 +125,9 @@ def get_user_from_users(username):
 
 def validate_username(username):
 
+    if len(username) > 16:
+        raise UserInputError("Username can't exceed 16 characters")
+
     if username_exists(username):
         raise UserInputError(f"User with username {username} exists already")
         
@@ -131,6 +140,9 @@ def validate_username(username):
     return True
 
 def validate_password(password):
+
+    if len(password) > 16:
+        raise UserInputError("Password can't exceed 16 characters")
 
     if len(password) < 8:
         raise UserInputError(f"Password is too short")
