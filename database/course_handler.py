@@ -34,13 +34,6 @@ def delete_course(course_name):
 
     return True
 
-def get_all_course_names():
-
-    sql = "SELECT name FROM Courses"
-    result = db.session.execute(sql)
-
-    return result
-
 def course_name(course_id):
 
     sql = "SELECT name FROM Courses WHERE id =:course_id"

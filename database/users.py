@@ -163,7 +163,3 @@ def validate_registration(username, password1, password2):
 
     return True
 
-
-if __name__=="__main__":
-    
-    studentrecords = student_records()
