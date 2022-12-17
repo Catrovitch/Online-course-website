@@ -71,6 +71,13 @@ flask run
 
 Good luck!
 
+
+   ## Final Deadline Development notes (18.12.2022)
+   
+   The web application is ready for the purposes of this course. The app is functional both locally and at fly.io. No major changes has been implemented since last deadline as it was mostly complete already back then. Most notably some cyber-security aspects have been dealt with. CFSR-weaknesses have been fixed in all situations of the website. There has been some further improvment into what kind of inputs a user can write into text-fields. Errors are now shown in a better way. The code has also been reviewed and cleaned. Some refactoring has been done as well.
+   
+   #### Final thoughts
+   This course has been immensly giving and I have really learned a lot. It has been tons of work with many bugs, but in the end it was always motivating to push further since you were builing something. Thank you for the course and have a great Christmas!
      
    ## Third Deadline Development notes (4.12.2022)
    
