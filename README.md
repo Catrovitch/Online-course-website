@@ -76,6 +76,31 @@ Good luck!
    
    The web application is ready for the purposes of this course. The app is functional both locally and at fly.io. No major changes has been implemented since last deadline as it was mostly complete already back then. Most notably some cyber-security aspects have been dealt with. CFSR-weaknesses have been fixed in all situations of the website. There has been some further improvment into what kind of inputs a user can write into text-fields. Errors are now shown in a better way. The code has also been reviewed and cleaned. Some refactoring has been done as well.
    
+   #### The application
+   In the application you can view what courses are available without any user account. You can choose to register an account. For testing purposes the option to register as admin has been left in. This would of course be removed in a real case scenario.
+   
+   In the application a student (normal user) can:
+   - View courses available
+   - Register for a course
+   - Unregister for a course
+   - complete exercises
+   - view their progression on different courses
+   
+   In the application an admin can:
+   - Create a new course
+   - Delete a course
+   - Create exercises for a course
+   - Edit exercises
+   - Delete exercises
+   - View registered students
+   - View students' progression on courses
+   - Everything that a student can do
+
+   #### Some minor problems
+   There were some minor problems which I and an instructor of the course tried to fix, but we couldn't. Sometimes when loading the page for the first time there is an emediate error. This is solved by entering "/logout" into the url. Because of this I believe the program may some certain times not properly delete a users session when exiting the website. This however doesn't happen every time and hasn't actually happened now for a couple of weeks so I don't even know if it is still present. 
+   
+   The other thing was that I got this response in labtool: Älä laita versionhallintaan salaista tietoa, kuten istuntojen salaista avainta tai osoitetta, jonka kautta pääsee käsiksi tuotantotietokantaan. We tried to find this file with the instructor, but to no avail. Please let me know where to find it and how to delete it if it is still there, or was this just some general advice not specifc to me?
+      
    #### Final thoughts
    This course has been immensly giving and I have really learned a lot. It has been tons of work with many bugs, but in the end it was always motivating to push further since you were builing something. Thank you for the course and have a great Christmas!
      
